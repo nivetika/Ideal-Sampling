@@ -7,7 +7,7 @@ Write a simple Python program for the construction and reconstruction of ideal, 
 # Tools required
 Colab Software
 ## 1.1 Flat-Top Sampling
-# Program
+## Program
 ```
 import numpy as np
 import matplotlib.pyplot as plt
@@ -77,11 +77,52 @@ plt.tight_layout()
 plt.show()
 ```
 # Output Waveform
-```
-Attach the output waveform
-```
+<img width="1168" height="825" alt="image" src="https://github.com/user-attachments/assets/287a491f-c682-4156-8f10-4df2606fce01" />
+
 # Results
+Thus, the colab program for flat-top sampling is executed successfully.
+
+## 1.2 Impulse Sampling
+## Program
 ```
-Attach the output waveform
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import resample
+fs = 100
+t = np.arange(0, 1, 1/fs)
+f = 5
+signal = np.sin(2 * np.pi * f * t)
+plt.figure(figsize=(10, 4))
+plt.plot(t, signal, label='Continuous Signal')
+plt.title('Continuous Signal (fs = 100 Hz)')
+plt.xlabel('Time [s]')
+plt.ylabel('Amplitude')
+plt.grid(True)
+plt.legend()
+plt.show()
+t_sampled = np.arange(0, 1, 1/fs)
+signal_sampled = np.sin(2 * np.pi * f * t_sampled)
+plt.figure(figsize=(10, 4))
+plt.plot(t, signal, label='Continuous Signal', alpha=0.7)
+plt.stem(t_sampled, signal_sampled, linefmt='r-', markerfmt='ro',
+basefmt='r-', label='Sampled Signal (fs = 100 Hz)')
+plt.title('Sampling of Continuous Signal (fs = 100 Hz)')
+plt.xlabel('Time [s]')
+plt.ylabel('Amplitude')
+plt.grid(True)
+plt.legend()
+plt.show()
+reconstructed_signal = resample(signal_sampled, len(t))
+plt.figure(figsize=(10, 4))
+# plt.plot(t, signal, label='Continuous Signal', alpha=0.7)
+plt.plot(t, reconstructed_signal, 'r--', label='Reconstructed Signal (fs = 100 Hz)')
+plt.title('Reconstruction of Sampled Signal (fs = 100 Hz)')
+plt.xlabel('Time [s]')
+plt.ylabel('Amplitude')
+plt.grid(True)
+plt.legend()
+plt.show()
 ```
-# Hardware experiment output waveform.
+## Output Waveform
+<img width="540" height="736" alt="Screenshot 2026-02-20 155553" src="https://github.com/user-attachments/assets/ab208a7d-0d45-4ca0-87ed-4bfd8b1ab305" />
+
